@@ -1,18 +1,25 @@
 import mysql from 'mysql2';
+import fs from 'fs';
 
 const db = mysql.createConnection({
-    host: process.env.HOST_NAME,
-    user: process.env.USER_NAME,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
-})
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  ssl: {
+    ca: fs.readFileSync('./database/ca.pem')
+  },
+  connectTimeout: 30000
+});
 
 db.connect((err) => {
-    if (err) {
-        console.error("Database connection failed:", err.message);
-        return;
-    }
-    console.log("Connected to the MySQL database.");
+  if (err) {
+    console.error('Database connection failed:', err.message);
+  } else {
+    console.log('Connected to the database!');
+  }
 });
+
 
 export default db;
