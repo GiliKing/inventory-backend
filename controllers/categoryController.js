@@ -2,7 +2,7 @@ import db from '../database/db.js'
 
 // get all items 
 // @route GET /api/categories
-export const getCategories = (req, res) => {
+export const getCategories = (req, res, next) => {
     const limit = parseInt(req.query.limit);
     const query = 'SELECT * FROM categories';
     db.query(query, (err, results) => {
