@@ -1,10 +1,10 @@
 import mysql from 'mysql2';
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "inventory"
+    host: process.env.HOST_NAME,
+    user: process.env.USER_NAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
 })
 
 db.connect((err) => {
